@@ -4,6 +4,7 @@ import br.com.veiculos.repository.CadastroUsuarioRepository
 import br.com.veiculos.request.NovoUsuarioRequest
 import br.com.veiculos.response.CadastroResponse
 import org.slf4j.LoggerFactory
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -26,6 +27,6 @@ class CadastroUsuarioController(val repository: CadastroUsuarioRepository) {
 
         repository.save(novoUsuario)
 
-        return ResponseEntity.status(201).body(CadastroResponse(novoUsuario))
+        return ResponseEntity.status(HttpStatus.CREATED).body(CadastroResponse(novoUsuario))
     }
 }

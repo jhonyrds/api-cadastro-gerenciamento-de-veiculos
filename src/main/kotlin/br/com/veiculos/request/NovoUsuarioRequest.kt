@@ -32,7 +32,7 @@ data class NovoUsuarioRequest(
         if (possivelEmail.isPresent) {
             throw CadastroException("Email Cadastrado")
         }
-        
+
         return Usuario(nome, email, cpf, dtNascimento)
     }
 
