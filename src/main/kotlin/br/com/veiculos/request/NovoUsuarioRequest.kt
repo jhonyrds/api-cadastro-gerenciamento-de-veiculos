@@ -35,5 +35,4 @@ data class NovoUsuarioRequest(
 
         return Usuario(nome, email, cpf, dtNascimento)
     }
-
 }

@@ -11,6 +11,8 @@ class Veiculo(
     @field:NotBlank val marca: String,
     @field:NotBlank val modelo: String,
     @field:Positive @field:Min(1990) val ano: Int,
+    @field:Enumerated(EnumType.STRING)
+    val diaDeRodizio: DiaDoRodizio,
     @field:NotNull @field:ManyToOne
     val usuario: Usuario
 ) {
