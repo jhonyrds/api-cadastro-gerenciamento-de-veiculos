@@ -4,6 +4,7 @@ import br.com.veiculos.client.FipeClient
 import br.com.veiculos.client.FipeInfoResponse
 import br.com.veiculos.repository.CadastroUsuarioRepository
 import br.com.veiculos.repository.CadastroVeiculoRepository
+import br.com.veiculos.request.ConsultaFipeRequest
 import br.com.veiculos.request.NovoVeiculoRequest
 import br.com.veiculos.response.CadastroVeiculoReponse
 import br.com.veiculos.response.ListaVeiculoResponse
@@ -35,7 +36,7 @@ class CadastroVeiculoController(
     }
 
     @GetMapping("/{id}")
-    fun listar(@PathVariable id: Long): ResponseEntity<List<ListaVeiculoResponse>>{
+    fun listar(@PathVariable id: Long): ResponseEntity<List<ListaVeiculoResponse>> {
 
         val list = repository.findByUsuarioId(id)
 
@@ -47,9 +48,11 @@ class CadastroVeiculoController(
     }
 
     @GetMapping
-    fun getFipe(): ResponseEntity<FipeInfoResponse>{
+    fun consulta(@RequestBody request: ConsultaFipeRequest): ResponseEntity<FipeInfoResponse?> {
 
-        val response = fipeClient.pegaFipe(marca = "21", modelo = "5295", ano = "2012-1")
+        val consulta = request.toModel()
+
+        val response = fipeClient.pegaFipe(consulta.marca, consulta.modelo, consulta.ano)
 
         LOGGER.info("Verificando tabela fipe $response")
 

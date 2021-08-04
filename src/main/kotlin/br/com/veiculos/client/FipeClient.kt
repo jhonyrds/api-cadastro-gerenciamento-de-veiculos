@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable
     name = "fipe"
 )
 interface FipeClient {
-    @GetMapping("marcas/{marca}/modelos/{modelo}/anos/{ano}")
+    @GetMapping("marcas/{marca}/modelos/{modelo}/anos/{ano}-1")
     fun pegaFipe(@PathVariable marca: String, @PathVariable modelo: String, @PathVariable ano: String): FipeInfoResponse
 }
