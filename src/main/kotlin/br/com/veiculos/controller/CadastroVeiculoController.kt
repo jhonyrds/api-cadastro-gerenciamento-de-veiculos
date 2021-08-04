@@ -1,5 +1,7 @@
 package br.com.veiculos.controller
 
+import br.com.veiculos.client.FipeClient
+import br.com.veiculos.client.FipeInfoResponse
 import br.com.veiculos.repository.CadastroUsuarioRepository
 import br.com.veiculos.repository.CadastroVeiculoRepository
 import br.com.veiculos.request.NovoVeiculoRequest
@@ -16,6 +18,7 @@ import javax.validation.Valid
 class CadastroVeiculoController(
     val repository: CadastroVeiculoRepository,
     val usuarioRepository: CadastroUsuarioRepository,
+    val fipeClient: FipeClient
 ) {
     val LOGGER = LoggerFactory.getLogger(CadastroVeiculoController::class.java)
 
@@ -41,5 +44,15 @@ class CadastroVeiculoController(
         val response = list.map { it -> ListaVeiculoResponse(it) }
 
         return ResponseEntity.ok(response)
+    }
+
+    @GetMapping
+    fun getFipe(): ResponseEntity<FipeInfoResponse>{
+
+        val response = fipeClient.pegaFipe(marca = "21", modelo = "5295", ano = "2012-1")
+
+        LOGGER.info("Verificando tabela fipe $response")
+
+        return ResponseEntity.ok().body(response)
     }
 }
